@@ -1,0 +1,74 @@
+int pulsTid = 200;                                        // Definition af konstanter. pulsTid og pauseTid i millisekunder, delayTid i mikrosekunder.
+int pauseTid = 33100;                                     // batteriAflaesning spændingen opgivet som et tal mellem 0 og 1023, svarende til 0-5V.
+int delayTid = 200;                                       // batteriSpaending er den aflæste værdi omregnet til Volt.
+int batteriAflaesning;
+float batteriSpaending;
+
+
+void setup() {                                             // Setup af de pins der benyttes.
+
+  pinMode(13, OUTPUT);                                     // Definition af de 3 digitale pins 11,12 og 13 som outputs. Den analoge pin A0 er automatisk defineret som input.
+  pinMode(12, OUTPUT);
+  pinMode(11, OUTPUT);
+
+}
+
+void loop()                                                // Alt under void loop bliver gentaget så længe arduinoen er tændt.
+
+{
+int batteriAflaesning = analogRead(0);                     // Aflæsning af spænding på analog pin 0 som en værdi mellem 0 og 1023 svarende til 0-5 volt.
+batteriSpaending = batteriAflaesning * (5.0 / 1023.0);     // Omregning af batteriAflaesning til en spænding i volt.
+
+if(batteriSpaending > 3.5)                                 // Hvis spændingen på analog pin 0 er over 3.5V, sæt digital pin 12 til logisk high og digital pin 11 til logisk low,
+{                                                          // svarende til at tænde for den grønne lysdiode og slukke for den røde.
+  digitalWrite(12, HIGH);
+  digitalWrite(11, LOW);
+}
+if(batteriSpaending <= 3.5)                                // Hvis spændingen på analog pin 0 er under eller lig med 3.5V, sæt digital pin 12 til logisk low og digital pin 11 til logisk high,
+{                                                          // svarende til at tænde for den røde lysdiode og slukke for den grønne.
+  digitalWrite(12, LOW);
+  digitalWrite(11, HIGH);
+}
+
+  digitalWrite(13, HIGH);                                  // Digital pin 13 bliver brugt til udgangssignalet som bliver sat skiftevis high og low i det ønskede pulsmønster.
+  delayMicroseconds(pulsTid);                              // Det det er en digital pin, er udgangsspændingen ved logisk high 5V, som kan justeres ned ved hjælp af ekstern potentiometer.
+ 
+  digitalWrite(13, LOW);
+  delayMicroseconds(pauseTid);
+
+  digitalWrite(13, HIGH);
+  delayMicroseconds(pulsTid);
+
+  digitalWrite(13, LOW);
+  delayMicroseconds(pauseTid);
+
+  digitalWrite(13, HIGH);
+  delayMicroseconds(pulsTid);
+
+  digitalWrite(13, LOW);
+  delayMicroseconds(pauseTid);
+
+  digitalWrite(13, HIGH);
+  delayMicroseconds(pulsTid);
+
+  digitalWrite(13, LOW);
+  delayMicroseconds(pauseTid);
+
+  digitalWrite(13, HIGH);
+  delayMicroseconds(pulsTid);
+
+  digitalWrite(13, LOW);
+  delayMicroseconds(pauseTid);
+
+  digitalWrite(13, HIGH);
+  delayMicroseconds(pulsTid);
+
+  digitalWrite(13, LOW);
+  delayMicroseconds(pauseTid);
+
+  digitalWrite(13, HIGH);
+  delayMicroseconds(pulsTid);
+
+  digitalWrite(13, LOW);
+  delay(delayTid);
+}
